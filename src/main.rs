@@ -31,19 +31,19 @@ const PRIVATE_KEY: &str = "";
 // 合约地址配置
 const TOKEN_MANAGER2_ADDRESS: &str = "0x5c952063c7fc8610FFDB798152D69F0B9550762b"; // TokenManager2 V2
 const TOKEN_MANAGER_HELPER_ADDRESS: &str = "0xF251F83e40a78868FcfA3FA4599Dad6494E46034"; // Helper3
-const DEFAULT_TOKEN_ADDRESS: &str = "0x305c131853125d5712fcb4b94fe1f3e408f94444"; // 用于卖出模式的默认代币
+const DEFAULT_TOKEN_ADDRESS: &str = "0xa61619c6569fcc0f8ecdd62854b2e452f3a84444"; // 用于卖出模式的默认代币
 
 // 创建代币配置
-const CREATE_TOKEN_NAME: &str = ""; // 代币名称
-const CREATE_TOKEN_SYMBOL: &str = "feiqing";
-const CREATE_TOKEN_DESC: &str = "feiqing meme token for fun and profit"; // 描述信息
+const CREATE_TOKEN_NAME: &str = "狐链fox"; // 代币名称
+const CREATE_TOKEN_SYMBOL: &str = "狐链fox";
+const CREATE_TOKEN_DESC: &str = "BullCoin is a powerful cryptocurrency that embodies the strength of the bull market. Combining blockchain innovation with community engagement, BullCoin offers unique opportunities for investors. Inspired by the bullish spirit, it aims to revolutionize the digital economy while supporting both Bitcoin and Ethereum ecosystems."; // 描述信息
 const CREATE_TOKEN_LABEL: &str = "Meme"; // AI/Meme/Defi/Games/Infra/De-Sci/Social/Depin/Charity/Others
-const CREATE_TOKEN_WEB_URL: &str = "https://x.com/home";
-const CREATE_TOKEN_TWITTER_URL: &str = "https://x.com/search?q=%24HOTFUN&src=typed_query&f=top";
+const CREATE_TOKEN_WEB_URL: &str = "https://difipay.vercel.app";
+const CREATE_TOKEN_TWITTER_URL: &str = "";
 const CREATE_TOKEN_TELEGRAM_URL: &str = "";
-const CREATE_TOKEN_PRE_SALE: &str = "0.1"; // 创建代币时预购买的BNB数量，"0"表示不预购买
-const CREATE_TOKEN_IMAGE_PATH: &str = "image/1.jpg"; // 本地图片路径
-const BUY_AMOUNT_BNB: f64 = 0.1; // 购买代币的BNB数量
+const CREATE_TOKEN_PRE_SALE: &str = "0.2"; // 创建代币时预购买的BNB数量，"0"表示不预购买
+const CREATE_TOKEN_IMAGE_PATH: &str = "image/狐链fox.jpg"; // 本地图片路径
+const BUY_AMOUNT_BNB: f64 = 0.2; // 购买代币的BNB数量
 
 // Four.meme API配置
 const FOURMEME_API_BASE_URL: &str = "https://four.meme/meme-api";
@@ -735,7 +735,7 @@ async fn create_token_and_buy(
     
     // 使用预购BNB数量的110%作为创建代币的费用
     let pre_sale_amount: f64 = CREATE_TOKEN_PRE_SALE.parse().unwrap_or(0.1);
-    let required_bnb: f64 = pre_sale_amount * 1.02; // 102%
+    let required_bnb: f64 = pre_sale_amount * 1.0; // 102%
     let required_bnb_wei = U256::from((required_bnb * 1e18) as u64);
     
     println!("  预购BNB数量: {} BNB", pre_sale_amount);
@@ -961,6 +961,26 @@ async fn main() -> std::result::Result<(), Box<dyn std::error::Error>> {
             }
             println!("获得代币数量: {}", create_result.tokens_received);
             println!("花费BNB: {}", format_ether(create_result.bnb_spent));
+
+            // println!("\n使用纯粹卖币方法进行卖出...");
+            
+            // let sell_result = sell_tokens_only(
+            //     client.clone(),
+            //     create_result.token_address,
+            //     token_manager2_address,
+            //     create_result.tokens_received,
+            // ).await?;
+            // // 4. 显示最终结果
+            // println!("\n📊 交易完成汇总:");
+            // if let Some(approve_hash) = sell_result.approve_tx_hash {
+            //     println!("Approve交易哈希: {:?}", approve_hash);
+            // }
+            // println!("Sell交易哈希: {:?}", sell_result.sell_tx_hash);
+            // if let Some(block_number) = sell_result.block_number {
+            //     println!("确认区块号: {:?}", block_number);
+            // }
+            // println!("代币卖出数量: {}", sell_result.token_sold);
+            // println!("BNB收益: {}", format_ether(sell_result.bnb_received));
         },
         "SELL" | _ => {
             // 3. 卖出代币模式（默认）
